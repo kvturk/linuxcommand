@@ -1,0 +1,38 @@
+Install SSH (Secure Shell) Service on Kali Linux
+Last modified on September 8, 2020  27 sec read
+
+In this article, I’m going to share how to install & enable SSh on Kali Linux.
+
+Table of Contents
+Install SSH
+Enable and Start
+Allow Root Access
+Install SSH
+To install SSH, run this command:
+
+# update system
+sudo apt-get update
+
+# install SSH
+sudo apt-get install ssh
+Enable and Start
+To enable SSH after rebooting system, run this command:
+
+sudo systemctl enable ssh
+Now start SSH service using this command:
+
+sudo service ssh start
+Allow Root Access
+By default SSH won’t allow us to SSH login as root user. To allow root user access, open this file:
+
+sudo nano /etc/ssh/sshd_config
+Then change PermitRootLogin value to yes:
+
+From:
+#PermitRootLogin prohibit-password
+
+To:
+PermitRootLogin yes
+After that restart SSH service:
+
+sudo service ssh restart
