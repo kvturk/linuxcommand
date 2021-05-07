@@ -1,0 +1,19 @@
+Ubuntu veya Red Hat Enterprise Linux 7 için uykuyu devre dışı bırakın ve kapak güç ayarlarını yapılandırın
+Uyku özelliğini devre dışı bırak:
+Uykuyu kapatma:
+Bir Terminalöğesini açtıktan sonra aşağıdaki komutu çalıştırın: # systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+Uykuyu etkinleştirme:
+A Terminal öğesini açın.
+Aşağıdaki komutu çalıştırın: # systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+Kapak güç ayarlarını yapılandırın:
+
+/etc/systemd/logind.conf Dosyayı düzenlemek için açın.
+Satırı #HandleLidSwitch=suspendbulun.
+Satır başındaki # karakteri çıkarın.
+Satırı aşağıdaki istediğiniz ayarlardan biriyle değiştirin:
+HandleLidSwitch=poweroff kapak kapalıyken bilgisayarı kapatmak için
+HandleLidSwitch=hibernate kapak kapalıyken bilgisayarı uyku moduna almak için
+HandleLidSwitch=suspend kapak kapalıyken bilgisayarı askıya almak için
+HandleLidSwitch=ignore hiçbir şey yapmaz
+Dosyayı kaydedin ve değişiklikleri yazarak # systemctl restart systemd-loginduygulamak için hizmeti yeniden başlatın.
