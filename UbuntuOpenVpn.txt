@@ -1,0 +1,36 @@
+OpenVPN Server Kurulumu (Linux)
+OpenVPN tam olarak bir SSL VPN uygulamasıdır. OpenVPN ile layer 2 ve 3 katmanında güvenli ağlar oluşturabilir, güvenli network erişimi sağlayabilirsiniz. Aynı zamanda networkleri birbirine bağlayabilirsiniz. Güzel yanlarından biriside açık kaynak kodlu olmasıdır.
+
+Hızlıca kurulum ve yapılandırma aşamlarına geçelim. Ben Ubuntu 18 üzerinde kurulum yapacağım. Adım adım ilerleyelim.
+
+1. Adım : İlk başta update’lerimizi yapalım. ” apt-get update -y ” bekleyelim ve sunucumuzu reboot edelim.
+
+2. Adım : wget https://git.io/vpn -O openvpn-install.sh sh dosyamızı indirelim.
+
+3. Adım : bash openvpn-install.sh çalıştıralım. Burada size bazı sorular soracaktır. Cevaplayalım birlikte.
+
+4. Adım : Size protokol TCP / UDP mi diye soracaktır. TCP’ yi seçiyoruz.
+
+5. Adım : OpenVPN hangi portu dinlesin ? diye bir soru gelecektir. Varsayılan ” 1194 ” tür. İsterseniz 1194 veya farlı bir port yazabilirsiniz.
+
+6. Adım : VPN ile hangi DNS sağlayıcısını kullanmak istiyorsunuz ? Google’ ı seçebilirsiniz.
+
+7. Adım : Evet kurulumu yarıladık sayılır. Şimdi bu aşamada sizlere ilk vpn kullanıcımızı oluşturtacaktır. İstediğiniz bir k.adı yazabilirsiniz veya ” client ” yazabilirsiniz. Akabinde sizden kurulum için onay isteyecektir. Enter’ lıyoruz.
+
+8. Adım : Kurulum bitti!. Size kullanıcınıza ait olan ” client.ovpn ” doyanızın yolunu verecektir. Örn: “root/client.ovpn” bu dosya artık kullanıcımıza ait giriş biletimizdir.
+
+9. Adım : systemctl enable openvpn-server@server.service
+
+10. Adım : systemctl start openvpn-server@server.service
+
+Open VPN Sunucumuza Bağlantı Kurmak
+
+1. Adım : Örnek olarak windows bir cihazdan vpn bağlantısı yapacağımız düşünelim. Buradan windows client toolumuzu indirelim. Sunucuda size verilen ” .ovpn ” uzantılı bilgisayarımıza alalım.
+
+2. Adım : OpenVPN’ i bilgisayarımıza kurduktan sonra sağ alt tarafta ikonu zaten belirecektir. Sağ tık ” Import File ” seçeneği ile dosyamızı import edelim. Ardından aynı şekilde sağ tık ve vpn sunucumuzun üzerine gelerek ” Bağlan ” diyelim. Artık vpn sunucumuza bağlandık ve ip almış durumdayız.
+
+Ek Bilgilendirmeler
+
+1. Bilgilendirme : OpenVPN sunucumuz ait config dosyamıza /etc/openvpn/server.conf buradan ulaşıp düzenlemeler yapabilirsiniz. Local ip, port vb. ayarlarınızı custom şekilde gerçekleştirebilirsiniz.
+
+2. Bilgilendirme : Yeni vpn kullanıcılarımızı nasıl yöneteceğiz ? Yine aynı sh dosyamız ile ” sudo bash openvpn-install.sh ” komutu ile yeni kullanıcı oluşturabilir, silebilir ve openvpn uygulamasını tamamen sunucudan kaldırabilirsiniz.
